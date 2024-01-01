@@ -12,7 +12,6 @@ let logger = require('morgan');
 const passport = require('passport');
 
 const { devicePassportStrategy } = require('./middleware');
-const { clientPassportStrategy } = require('./middleware');
 
 const app = express();
 const corsOptions = { origin: process.env.ALLOW_ORIGIN, };
@@ -26,7 +25,6 @@ app.set('views', path.join(__dirname, 'views'));
 const routes =  require('./routes');
 
 devicePassportStrategy(passport);
-clientPassportStrategy(passport);
 
 app.use(logger('dev'));
 app.use(express.json());

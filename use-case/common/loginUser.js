@@ -67,12 +67,6 @@ const loginUser = ({
       }
       token = await generateToken(userData,JWT.DEVICE_SECRET);
     }
-    else if (platform == PLATFORM.CLIENT){
-      if (!LOGIN_ACCESS[user.userType].includes(PLATFORM.CLIENT)){
-        return response.badRequest({ message : 'you are unable to access this platform' });
-      }
-      token = await generateToken(userData,JWT.CLIENT_SECRET);
-    }
     if (user.loginRetryLimit){
       await userDb.updateOne({ _id :user.id },{
         loginRetryLimit:0,

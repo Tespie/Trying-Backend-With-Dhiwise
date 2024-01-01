@@ -16,7 +16,6 @@ const checkRolePermission = require('./checkRolePermission')({
 });
 
 const devicePassportStrategy = require('./devicePassportStrategy')({ userDb });
-const clientPassportStrategy = require('./clientPassportStrategy')({ userDb });
 
 const test_middleware = require('./test_middleware');
 
@@ -24,6 +23,5 @@ module.exports = {
   auth,
   checkRolePermission,
   devicePassportStrategy,
-  clientPassportStrategy,
   test_middleware,
 };

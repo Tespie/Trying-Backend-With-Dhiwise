@@ -5,18 +5,20 @@
 
 const JWT = {
   DEVICE_SECRET:'myjwtdevicesecret',
-  CLIENT_SECRET:'myjwtclientsecret',
   EXPIRES_IN: 10000
 };
 
-const USER_TYPES = { User:1, };
-
-const PLATFORM = {
-  DEVICE:1,
-  CLIENT:2,
+const USER_TYPES = {
+  User:1,
+  Admin:2,
 };
 
-let LOGIN_ACCESS = { [USER_TYPES.User]:[PLATFORM.DEVICE,PLATFORM.CLIENT], };
+const PLATFORM = { DEVICE:1, };
+
+let LOGIN_ACCESS = {
+  [USER_TYPES.User]:[PLATFORM.DEVICE],           
+  [USER_TYPES.Admin]:[PLATFORM.DEVICE],           
+};
 
 const MAX_LOGIN_RETRY_LIMIT = 3;
 const LOGIN_REACTIVE_TIME = 1;

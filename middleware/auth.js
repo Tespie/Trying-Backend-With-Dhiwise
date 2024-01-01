@@ -53,20 +53,6 @@ const auth = ({
         responseHandler(res,unAuthorized());
       });
   }
-    
-  else if (platform == PLATFORM.CLIENT){
-    return new Promise((resolve, reject) => {
-      passport.authenticate('client-rule', { session: false }, verifyCallback(userTokensDb,req, resolve, reject, platform))(
-        req,
-        res,
-        next
-      );
-    })
-      .then(() => next())
-      .catch((error) => {
-        responseHandler(res,unAuthorized());
-      });
-  }
    
 };
 
