@@ -26,6 +26,10 @@ const findAllUser = (findAllUserUsecase) => async (req,res) => {
   try {
     let query = { ...req.body.query || {} };
     let options = { ...req.body.options || {} };
+    query._id = { $ne: req.user.id };
+    if (req.body && req.body.query && req.body.query._id) {
+      query._id.$in = [req.body.query._id];
+    }
     let result = await findAllUserUsecase({
       query,
       options,
@@ -71,6 +75,7 @@ const updateUser = (updateUserUsecase) => async (req,res) =>{
     }
     let dataToUpdate = { ...req.body || {} };
     let query = { _id: req.params.id };
+    query._id.$ne = req.user.id;
     let result = await updateUserUsecase({
       dataToUpdate,
       query
@@ -85,6 +90,10 @@ const bulkUpdateUser = (bulkUpdateUserUsecase) => async (req,res) => {
   try {
     let dataToUpdate = { ...req.body.data || {} };
     let query = { ...req.body.filter || {} };
+    query._id = { $ne: req.user.id };
+    if (req.body.filter && req.body.filter._id){
+      query._id.$in = [req.body.filter._id];
+    }
     let result = await bulkUpdateUserUsecase({
       dataToUpdate,
       query
@@ -102,6 +111,7 @@ const partialUpdateUser = (partialUpdateUserUsecase) => async (req,res) => {
     }
     let query = { _id: req.params.id };
     let dataToUpdate = { ...req.body || {} };
+    query._id.$ne = req.user.id;
     let result = await partialUpdateUserUsecase({
       dataToUpdate,
       query
@@ -118,6 +128,7 @@ const softDeleteUser = (softDeleteUserUsecase) => async (req,res) => {
       return responseHandler(res,response.badRequest({ message : 'Insufficient request parameters! id is required.' }));
     }
     let query = { _id: req.params.id };
+    query._id.$ne = req.user.id;
     const dataToUpdate = { isDeleted: true, };
     let result = await softDeleteUserUsecase({
       query,
@@ -136,6 +147,7 @@ const deleteUser = (deleteUserUsecase) => async (req,res) => {
       return responseHandler(res,response.badRequest({ message : 'Insufficient request parameters! id is required.' }));
     }
     let query = { _id: req.params.id };
+    query._id.$ne = req.user.id;
     let result = await deleteUserUsecase({
       query,
       isWarning:req.body.isWarning || false
@@ -153,6 +165,7 @@ const deleteManyUser = (deleteManyUserUsecase) => async (req,res) => {
     }
     let ids = req.body.ids;
     let query = { _id : { $in:ids } };
+    query._id.$ne = req.user.id;
     let result = await deleteManyUserUsecase({
       query,
       isWarning:req.body.isWarning || false
@@ -170,6 +183,7 @@ const softDeleteManyUser = (softDeleteManyUserUsecase) => async (req,res) => {
     }
     let ids = req.body.ids;
     let query = { _id : { $in:ids } };
+    query._id.$ne = req.user.id;
     const dataToUpdate = { isDeleted: true, };
     let result = await softDeleteManyUserUsecase({
       query,
@@ -213,7 +227,6 @@ const getLoggedInUserInfo = (getUserUsecase) => async (req,res) =>{
     const query = {
       _id : req.user.id,
       isDeleted: false,
-      isActive: true
     };
     let result = await getUserUsecase({
       query,

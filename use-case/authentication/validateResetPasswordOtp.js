@@ -11,7 +11,7 @@ const validateResetPasswordOtp = ({ userDb }) => async (params) => {
     return response.badRequest({ message : 'Insufficient request parameters! otp is required.' });
   }
   const where = { 'resetPasswordLink.code': params.otp };
-  where.isActive = true;where.isDeleted = false;    let user = await userDb.findOne(where);
+  where.isDeleted = false;    let user = await userDb.findOne(where);
   if (!user || !user.resetPasswordLink.expireTime) {
     return response.badRequest({ message : 'Invalid OTP' });
   }

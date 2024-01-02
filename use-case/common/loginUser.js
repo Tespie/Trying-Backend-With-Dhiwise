@@ -14,7 +14,7 @@ const loginUser = ({
 })=> async (username,platform,password = null,roleAccess) => {
 
   let where = { 'email':username };
-  where.isActive = true;where.isDeleted = false;    let user = await userDb.findOne(where);
+  where.isDeleted = false;    let user = await userDb.findOne(where);
   if (user) {
     if (user.loginRetryLimit >= MAX_LOGIN_RETRY_LIMIT){
       let now = dayjs();

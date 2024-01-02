@@ -15,7 +15,7 @@ const forgotPassword = ({
     return response.badRequest({ message : 'Insufficient request parameters! email is required' });
   }
   let where = { email: params.email };
-  where.isActive = true;where.isDeleted = false;    params.email = params.email.toString().toLowerCase();
+  where.isDeleted = false;    params.email = params.email.toString().toLowerCase();
   let user = await userDb.findOne(where);
   if (user) {
     let sendResetPasswordNotification = makeSendResetPasswordNotification({

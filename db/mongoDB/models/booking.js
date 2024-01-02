@@ -27,15 +27,8 @@ const schema = new Schema({
   fromTime: { type:String },
   toTime: { type:String },
   purpose: { type:String },
-  createdAt: { type:Date },
-  updatedAt: { type:Date },
+  department: { type:String },
   isDeleted: { type:Boolean }
-}
-,{ 
-  timestamps: { 
-    createdAt: 'createdAt', 
-    updatedAt: 'updatedAt' 
-  } 
 }
 );
 schema.plugin(autoIncrement, {

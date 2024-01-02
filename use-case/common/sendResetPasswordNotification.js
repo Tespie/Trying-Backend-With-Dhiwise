@@ -16,7 +16,6 @@ const sendResetPasswordNotification = ({ userDb }) => async (user) => {
   await userDb.updateOne(
     {
       _id :user.id,
-      isActive : true,
       isDeleted : false,      
     }, {
       resetPasswordLink: {
@@ -27,7 +26,6 @@ const sendResetPasswordNotification = ({ userDb }) => async (user) => {
   if (FORGOT_PASSWORD_WITH.LINK.email){
     let updatedUser = await userDb.findOne({
       _id:user.id,
-      isActive : true,
       isDeleted : false,
     });
 

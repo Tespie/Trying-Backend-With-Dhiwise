@@ -16,11 +16,6 @@
 	# Default User credentials
 	**username** : Althea97@yahoo.com
 	**password** : Tv13D1DJPuuIiDl
-
-	- One user with Admin role,
-	# Default Admin credentials
-	**username** : Coralie83@gmail.com
-	**password** : EY7y7jLrsM799Zh
 	
 ## How to use generated APIs:
 [Click here to visit documentation](<https://docs.dhiwise.com/docs/node/generate-apis/> "API Documentation")

@@ -7,8 +7,7 @@ module.exports = (booking) => {
     fromTime: booking.fromTime,
     toTime: booking.toTime,
     purpose: booking.purpose,
-    createdAt: booking.createdAt,
-    updatedAt: booking.updatedAt,
+    department: booking.department,
     isDeleted: booking.isDeleted,
   };
 

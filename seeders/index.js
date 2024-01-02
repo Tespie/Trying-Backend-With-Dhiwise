@@ -14,23 +14,10 @@ async function seedUser () {
       'password':'Tv13D1DJPuuIiDl',
       'isDeleted':false,
       'email':'Althea97@yahoo.com',
-      'isActive':true,
       'userType':authConstant.USER_TYPES.User
     };
     userToBeInserted.password = await bcrypt.hash(userToBeInserted.password, 8);
     let user = await userDb.updateOne( { 'email':'Althea97@yahoo.com' }, userToBeInserted,  {
-      upsert: true,
-      new: true
-    });
-    userToBeInserted = {
-      'password':'EY7y7jLrsM799Zh',
-      'isDeleted':false,
-      'email':'Coralie83@gmail.com',
-      'isActive':true,
-      'userType':authConstant.USER_TYPES.Admin
-    };
-    userToBeInserted.password = await bcrypt.hash(userToBeInserted.password, 8);
-    let admin = await userDb.updateOne( { 'email':'Coralie83@gmail.com' }, userToBeInserted,  {
       upsert: true,
       new: true
     });
@@ -706,16 +693,13 @@ async function seedUserRole () {
     const userRoles = [{
       'email':'Althea97@yahoo.com',
       'password':'Tv13D1DJPuuIiDl'
-    },{
-      'email':'Coralie83@gmail.com',
-      'password':'EY7y7jLrsM799Zh'
     }];
     const defaultRoles = await roleDb.findMany();
     const insertedUsers = await userDb.findMany( { username: { '$in': userRoles.map(userRole => userRole.username) } });
     let user = {};
     const userRolesArr = [];
     userRoles.map(userRole => {
-      user = insertedUsers.find(user => user.username === userRole.username && user.isPasswordMatch(userRole.password) && user.isActive && !user.isDeleted);
+      user = insertedUsers.find(user => user.username === userRole.username && user.isPasswordMatch(userRole.password) && !user.isDeleted);
       if (user) {
         if (user.userType === authConstant.USER_TYPES.Admin){
           userRolesArr.push({

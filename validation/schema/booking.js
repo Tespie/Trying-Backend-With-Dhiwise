@@ -10,6 +10,7 @@ const createSchema = joi.object({
   fromTime: joi.string().allow(null).allow(''),
   toTime: joi.string().allow(null).allow(''),
   purpose: joi.string().allow(null).allow(''),
+  department: joi.string().allow(null).allow(''),
   isDeleted: joi.boolean()
 }).unknown(true);
 
@@ -20,6 +21,7 @@ const updateSchema = joi.object({
   fromTime: joi.string().allow(null).allow(''),
   toTime: joi.string().allow(null).allow(''),
   purpose: joi.string().allow(null).allow(''),
+  department: joi.string().allow(null).allow(''),
   isDeleted: joi.boolean(),
   _id: joi.string().regex(/^[0-9a-fA-F]{24}$/)
 }
@@ -36,6 +38,7 @@ let filterValidationSchema = joi.object({
       fromTime: joi.alternatives().try(joi.array().items(),joi.string(),joi.object()),
       toTime: joi.alternatives().try(joi.array().items(),joi.string(),joi.object()),
       purpose: joi.alternatives().try(joi.array().items(),joi.string(),joi.object()),
+      department: joi.alternatives().try(joi.array().items(),joi.string(),joi.object()),
       isDeleted: joi.alternatives().try(joi.array().items(),joi.boolean(),joi.object()),
       _id: joi.alternatives().try(joi.array().items(),joi.string().regex(/^[0-9a-fA-F]{24}$/),joi.object())
     }

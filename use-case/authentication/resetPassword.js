@@ -13,7 +13,7 @@ const resetPassword = ({ userDb }) => async (params) => {
     return response.badRequest({ message : 'Insufficient request parameters! newPassword and code is required.' });
   }
   let where = { 'resetPasswordLink.code': params.code };
-  where.isActive = true;where.isDeleted = false;    let user = await userDb.findOne(where);
+  where.isDeleted = false;    let user = await userDb.findOne(where);
   //TODO : add condition for guest User
 
   if (user && user.resetPasswordLink.expireTime) {
@@ -26,7 +26,7 @@ const resetPassword = ({ userDb }) => async (params) => {
     return response.badRequest({ message :'Invalid Code' });
   }
   where = { _id: user.id };
-  where.isActive = true;where.isDeleted = false;    let newPassword = await bcrypt.hash(params.newPassword, 8);
+  where.isDeleted = false;    let newPassword = await bcrypt.hash(params.newPassword, 8);
   await userDb.updateOne(where, {
     'password': newPassword,
     resetPasswordLink: null,

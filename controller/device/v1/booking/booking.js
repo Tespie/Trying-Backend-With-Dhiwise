@@ -8,10 +8,8 @@ const addBooking = (addBookingUsecase) => async (req,res) => {
     let result = await addBookingUsecase(dataToCreate,req,res);
     if (Object.keys(result.data).length){
       result.data = (({
-        createdAt,updatedAt,addedBy,updatedBy,id,location,bookingDate,fromTime,toTime,purpose
+        addedBy,updatedBy,id,location,bookingDate,fromTime,toTime,purpose
       }) => ({
-        createdAt,
-        updatedAt,
         addedBy,
         updatedBy,
         id,
